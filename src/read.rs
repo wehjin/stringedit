@@ -27,8 +27,14 @@ mod tests {
 
 		#[test]
 		fn at_eos() {
-			let position = StringEdit::new("abc", 3).read_spot(3);
-			assert_eq!(position, Some(Spot { char: '\n', is_cursor: true }))
+			let position = StringEdit::new("abc", 0).read_spot(3);
+			assert_eq!(position, Some(Spot { char: '\n', is_cursor: false }))
+		}
+
+		#[test]
+		fn beyond_eos() {
+			let position = StringEdit::new("abc", 0).read_spot(4);
+			assert_eq!(position, None)
 		}
 	}
 }
