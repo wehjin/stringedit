@@ -1,3 +1,4 @@
+pub use delete::*;
 pub use init::*;
 pub use navigate::*;
 
@@ -18,16 +19,6 @@ mod tests {
 		}
 	}
 
-	mod delete {
-		use crate::StringEdit;
-
-		#[test]
-		fn previous_char_from_end() {
-			let deleted = StringEdit::new("abc", 3).delete_previous_char();
-			assert_eq!(deleted, StringEdit { chars: vec!['a', 'b'], cursor_pos: 2 })
-		}
-	}
-
 	#[test]
 	fn read() {
 		let red = StringEdit::new("abc", 0).read();
@@ -41,18 +32,9 @@ pub struct StringEdit {
 	pub cursor_pos: usize,
 }
 
-impl StringEdit {
-	pub fn delete_previous_char(&self) -> Self {
-		if self.cursor_pos == 0 {
-			self.clone()
-		} else {
-			let count = 1;
-			let chars = [&self.chars[0..self.cursor_pos - count], &self.chars[self.cursor_pos..]].concat();
-			let cursor_pos = self.cursor_pos - count;
-			StringEdit { chars, cursor_pos }
-		}
-	}
+mod delete;
 
+impl StringEdit {
 	pub fn insert_char(&self, c: char) -> Self {
 		if c.is_control() {
 			self.clone()
