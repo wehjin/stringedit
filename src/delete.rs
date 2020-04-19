@@ -2,6 +2,14 @@ use crate::StringEdit;
 
 #[cfg(test)]
 mod tests {
+	use crate::StringEdit;
+
+	#[test]
+	fn all() {
+		let edit = StringEdit::new("abc", 2).delete_chars();
+		assert_eq!(edit, StringEdit { chars: vec![], cursor_pos: 0 });
+	}
+
 	mod previous_char {
 		use crate::StringEdit;
 
@@ -36,6 +44,10 @@ mod tests {
 }
 
 impl StringEdit {
+	pub fn delete_chars(&self) -> Self {
+		StringEdit { chars: vec![], cursor_pos: 0 }
+	}
+
 	pub fn delete_char_before_cursor(&self) -> Self {
 		if self.cursor_pos == 0 {
 			self.clone()
