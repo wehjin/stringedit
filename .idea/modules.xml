@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/editline.iml" filepath="$PROJECT_DIR$/.idea/editline.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../stringedit/.idea/stringedit.iml" filepath="$PROJECT_DIR$/../stringedit/.idea/stringedit.iml" />
     </modules>
   </component>
 </project>
