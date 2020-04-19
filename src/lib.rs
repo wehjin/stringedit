@@ -1,38 +1,31 @@
 pub use delete::*;
 pub use init::*;
 pub use navigate::*;
+pub use read::*;
 
 mod init;
 mod navigate;
+mod delete;
+mod read;
 
 #[cfg(test)]
 mod tests {
-	use crate::StringEdit;
-
 	mod insert {
 		use crate::StringEdit;
 
 		#[test]
 		fn char() {
 			let inserted = StringEdit::empty().insert_char('A');
-			assert_eq!(inserted, StringEdit { chars: vec!['A'], cursor_pos: 1 })
+			assert_eq!(inserted, StringEdit { chars: vec!['A'], cursor_index: 1 })
 		}
-	}
-
-	#[test]
-	fn read() {
-		let red = StringEdit::new("abc", 0).read();
-		assert_eq!(red, "abc");
 	}
 }
 
 #[derive(Clone, Eq, PartialEq, Debug)]
 pub struct StringEdit {
-	pub chars: Vec<char>,
-	pub cursor_pos: usize,
+	chars: Vec<char>,
+	pub cursor_index: usize,
 }
-
-mod delete;
 
 impl StringEdit {
 	pub fn insert_char(&self, c: char) -> Self {
@@ -40,13 +33,9 @@ impl StringEdit {
 			self.clone()
 		} else {
 			let new = [c];
-			let chars = [&self.chars[0..self.cursor_pos], &new, &self.chars[self.cursor_pos..]].concat();
-			let cursor_pos = self.cursor_pos + 1;
-			StringEdit { chars, cursor_pos }
+			let chars = [&self.chars[0..self.cursor_index], &new, &self.chars[self.cursor_index..]].concat();
+			let cursor_pos = self.cursor_index + 1;
+			StringEdit { chars, cursor_index: cursor_pos }
 		}
-	}
-
-	pub fn read(&self) -> String {
-		self.chars.iter().collect()
 	}
 }

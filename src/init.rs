@@ -13,7 +13,7 @@ mod tests {
 	#[test]
 	fn empty() {
 		let empty = StringEdit::empty();
-		assert_eq!(empty, StringEdit { chars: vec![], cursor_pos: 0 });
+		assert_eq!(empty, StringEdit { chars: vec![], cursor_index: 0 });
 	}
 }
 
@@ -31,6 +31,6 @@ impl StringEdit {
 	pub fn new(value: &str, cursor_pos: usize) -> Self {
 		let chars = value.chars().collect::<Vec<_>>();
 		assert!(cursor_pos <= chars.len());
-		StringEdit { chars, cursor_pos }
+		StringEdit { chars, cursor_index: cursor_pos }
 	}
 }
