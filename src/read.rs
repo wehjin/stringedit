@@ -6,8 +6,8 @@ mod tests {
 
 	#[test]
 	fn read() {
-		let red = StringEdit::new("abc", 0).read();
-		assert_eq!(red, "abc")
+		let read = StringEdit::new("abc", 0).read();
+		assert_eq!(read, "abc")
 	}
 
 	mod read_spot {

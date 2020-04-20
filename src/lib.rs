@@ -10,6 +10,8 @@ mod read;
 
 #[cfg(test)]
 mod tests {
+	use crate::StringEdit;
+
 	mod insert {
 		use crate::StringEdit;
 
@@ -18,6 +20,12 @@ mod tests {
 			let inserted = StringEdit::empty().insert_char('A');
 			assert_eq!(inserted, StringEdit { chars: vec!['A'], cursor_index: 1 })
 		}
+	}
+
+	#[test]
+	fn value_len() {
+		let edit = StringEdit::new("abc", 0);
+		assert_eq!(edit.char_count(), 3)
 	}
 }
 
@@ -28,6 +36,10 @@ pub struct StringEdit {
 }
 
 impl StringEdit {
+	pub fn char_count(&self) -> usize {
+		self.chars.len()
+	}
+
 	pub fn insert_char(&self, c: char) -> Self {
 		if c.is_control() {
 			self.clone()
