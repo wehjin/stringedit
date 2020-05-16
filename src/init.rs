@@ -4,6 +4,7 @@ use crate::StringEdit;
 mod tests {
 	use crate::StringEdit;
 
+
 	#[test]
 	fn default() {
 		let default: StringEdit = Default::default();
