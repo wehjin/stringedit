@@ -25,21 +25,17 @@ mod tests {
 	#[test]
 	fn value_len() {
 		let edit = StringEdit::new("abc", 0);
-		assert_eq!(edit.char_count(), 3)
+		assert_eq!(edit.chars.len(), 3)
 	}
 }
 
 #[derive(Clone, Eq, PartialEq, Debug)]
 pub struct StringEdit {
-	chars: Vec<char>,
+	pub chars: Vec<char>,
 	pub cursor_index: usize,
 }
 
 impl StringEdit {
-	pub fn char_count(&self) -> usize {
-		self.chars.len()
-	}
-
 	pub fn insert_char(&self, c: char) -> Self {
 		if c.is_control() {
 			self.clone()
