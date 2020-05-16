@@ -46,6 +46,7 @@ impl StringEdit {
 	}
 }
 
+#[derive(Debug, Copy, Clone, Eq, PartialEq)]
 pub enum Action {
 	InsertChar(char),
 	Delete,
