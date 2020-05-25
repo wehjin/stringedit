@@ -8,14 +8,14 @@ mod tests {
 
 			#[test]
 			fn from_far_left() {
-				let edit = StringEdit::new("a", 0, Validity::Always).move_cursor_right();
-				assert_eq!(edit, StringEdit { chars: vec!['a'], cursor_index: 1, validity: Validity::Always })
+				let edit = StringEdit::new("a", 0, Validity::NotEmpty).move_cursor_right();
+				assert_eq!(edit, StringEdit { chars: vec!['a'], cursor_index: 1, validity: Validity::NotEmpty })
 			}
 
 			#[test]
 			fn from_far_right() {
-				let edit = StringEdit::new("a", 1, Validity::Always).move_cursor_right();
-				assert_eq!(edit, StringEdit { chars: vec!['a'], cursor_index: 1, validity: Validity::Always })
+				let edit = StringEdit::new("a", 1, Validity::NotEmpty).move_cursor_right();
+				assert_eq!(edit, StringEdit { chars: vec!['a'], cursor_index: 1, validity: Validity::NotEmpty })
 			}
 		}
 
@@ -24,14 +24,14 @@ mod tests {
 
 			#[test]
 			fn from_far_left() {
-				let edit = StringEdit::new("a", 0, Validity::Always).move_cursor_left();
-				assert_eq!(edit, StringEdit { chars: vec!['a'], cursor_index: 0, validity: Validity::Always })
+				let edit = StringEdit::new("a", 0, Validity::NotEmpty).move_cursor_left();
+				assert_eq!(edit, StringEdit { chars: vec!['a'], cursor_index: 0, validity: Validity::NotEmpty })
 			}
 
 			#[test]
 			fn from_far_right() {
-				let edit = StringEdit::new("a", 1, Validity::Always).move_cursor_left();
-				assert_eq!(edit, StringEdit { chars: vec!['a'], cursor_index: 0, validity: Validity::Always })
+				let edit = StringEdit::new("a", 1, Validity::NotEmpty).move_cursor_left();
+				assert_eq!(edit, StringEdit { chars: vec!['a'], cursor_index: 0, validity: Validity::NotEmpty })
 			}
 		}
 	}

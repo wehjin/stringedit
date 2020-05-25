@@ -54,6 +54,12 @@ mod tests {
 			assert_eq!(edit.is_valid(), false, "{:?} should be invalid for {:?}", valid, text)
 		}
 	}
+
+	#[test]
+	fn persistence_of_validity() {
+		let inserted = StringEdit::empty(Validity::UnsignedInt).insert_char('A');
+		assert_eq!(inserted.is_valid(), false, "{:?}", inserted)
+	}
 }
 
 #[derive(Clone, Eq, PartialEq, Debug)]

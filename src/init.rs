@@ -6,8 +6,8 @@ mod tests {
 
 	#[test]
 	fn empty() {
-		let empty = StringEdit::empty(Validity::Always);
-		assert_eq!(empty, StringEdit { chars: vec![], cursor_index: 0, validity: Validity::Always });
+		let empty = StringEdit::empty(Validity::NotEmpty);
+		assert_eq!(empty, StringEdit { chars: vec![], cursor_index: 0, validity: Validity::NotEmpty });
 	}
 }
 

@@ -1,4 +1,4 @@
-use crate::{StringEdit, Validity};
+use crate::StringEdit;
 
 #[cfg(test)]
 mod tests {
@@ -6,8 +6,8 @@ mod tests {
 
 	#[test]
 	fn char() {
-		let inserted = StringEdit::empty(Validity::Always).insert_char('A');
-		assert_eq!(inserted, StringEdit { chars: vec!['A'], cursor_index: 1, validity: Validity::Always })
+		let inserted = StringEdit::empty(Validity::UnsignedInt).insert_char('A');
+		assert_eq!(inserted, StringEdit { chars: vec!['A'], cursor_index: 1, validity: Validity::UnsignedInt })
 	}
 }
 
@@ -19,7 +19,7 @@ impl StringEdit {
 			let new = [c];
 			let chars = [&self.chars[0..self.cursor_index], &new, &self.chars[self.cursor_index..]].concat();
 			let cursor_pos = self.cursor_index + 1;
-			StringEdit { chars, cursor_index: cursor_pos, validity: Validity::Always }
+			StringEdit { chars, cursor_index: cursor_pos, validity: self.validity }
 		}
 	}
 }
