@@ -15,6 +15,12 @@ mod tests {
 	use crate::{Action, StringEdit};
 
 	#[test]
+	fn to_string() {
+		let edit = StringEdit::new("abc", 0);
+		assert_eq!(edit.to_string(), String::from("abc"))
+	}
+
+	#[test]
 	fn value_len() {
 		let edit = StringEdit::new("abc", 0);
 		assert_eq!(edit.chars.len(), 3)
@@ -44,6 +50,7 @@ impl StringEdit {
 			Action::MoveCursorRight => self.move_cursor_right()
 		}
 	}
+	pub fn to_string(&self) -> String { self.chars.iter().collect() }
 }
 
 #[derive(Debug, Copy, Clone, Eq, PartialEq)]
