@@ -1,13 +1,13 @@
-use crate::StringEdit;
+use crate::{StringEdit, Validity};
 
 #[cfg(test)]
 mod tests {
-	use crate::StringEdit;
+	use crate::{StringEdit, Validity};
 
 	#[test]
 	fn char() {
-		let inserted = StringEdit::empty().insert_char('A');
-		assert_eq!(inserted, StringEdit { chars: vec!['A'], cursor_index: 1 })
+		let inserted = StringEdit::empty(Validity::Always).insert_char('A');
+		assert_eq!(inserted, StringEdit { chars: vec!['A'], cursor_index: 1, validity: Validity::Always })
 	}
 }
 
@@ -19,7 +19,7 @@ impl StringEdit {
 			let new = [c];
 			let chars = [&self.chars[0..self.cursor_index], &new, &self.chars[self.cursor_index..]].concat();
 			let cursor_pos = self.cursor_index + 1;
-			StringEdit { chars, cursor_index: cursor_pos }
+			StringEdit { chars, cursor_index: cursor_pos, validity: Validity::Always }
 		}
 	}
 }

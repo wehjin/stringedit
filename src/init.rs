@@ -1,37 +1,24 @@
-use crate::StringEdit;
+use crate::{StringEdit, Validity};
 
 #[cfg(test)]
 mod tests {
-	use crate::StringEdit;
-
-
-	#[test]
-	fn default() {
-		let default: StringEdit = Default::default();
-		assert_eq!(default, StringEdit::empty());
-	}
+	use crate::{StringEdit, Validity};
 
 	#[test]
 	fn empty() {
-		let empty = StringEdit::empty();
-		assert_eq!(empty, StringEdit { chars: vec![], cursor_index: 0 });
-	}
-}
-
-impl Default for StringEdit {
-	fn default() -> Self {
-		StringEdit::empty()
+		let empty = StringEdit::empty(Validity::Always);
+		assert_eq!(empty, StringEdit { chars: vec![], cursor_index: 0, validity: Validity::Always });
 	}
 }
 
 impl StringEdit {
-	pub fn empty() -> Self {
-		StringEdit::new("", 0)
+	pub fn empty(validity: Validity) -> Self {
+		StringEdit::new("", 0, validity)
 	}
 
-	pub fn new(value: &str, cursor_pos: usize) -> Self {
-		let chars = value.chars().collect::<Vec<_>>();
+	pub fn new<S: AsRef<str>>(value: S, cursor_pos: usize, validity: Validity) -> Self {
+		let chars = value.as_ref().chars().collect::<Vec<_>>();
 		assert!(cursor_pos <= chars.len());
-		StringEdit { chars, cursor_index: cursor_pos }
+		StringEdit { chars, cursor_index: cursor_pos, validity }
 	}
 }

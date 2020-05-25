@@ -2,38 +2,38 @@ use crate::StringEdit;
 
 #[cfg(test)]
 mod tests {
-	use crate::StringEdit;
+	use crate::{StringEdit, Validity};
 
 	#[test]
 	fn read() {
-		let read = StringEdit::new("abc", 0).read();
+		let read = StringEdit::new("abc", 0, Validity::Always).read();
 		assert_eq!(read, "abc")
 	}
 
 	mod read_spot {
-		use crate::{Spot, StringEdit};
+		use crate::{Spot, StringEdit, Validity};
 
 		#[test]
 		fn at_cursor() {
-			let position = StringEdit::new("abc", 0).read_spot(0);
+			let position = StringEdit::new("abc", 0, Validity::Always).read_spot(0);
 			assert_eq!(position, Some(Spot { char: 'a', is_cursor: true }))
 		}
 
 		#[test]
 		fn at_normal() {
-			let position = StringEdit::new("abc", 0).read_spot(1);
+			let position = StringEdit::new("abc", 0, Validity::Always).read_spot(1);
 			assert_eq!(position, Some(Spot { char: 'b', is_cursor: false }))
 		}
 
 		#[test]
 		fn at_eos() {
-			let position = StringEdit::new("abc", 0).read_spot(3);
+			let position = StringEdit::new("abc", 0, Validity::Always).read_spot(3);
 			assert_eq!(position, Some(Spot { char: '\n', is_cursor: false }))
 		}
 
 		#[test]
 		fn beyond_eos() {
-			let position = StringEdit::new("abc", 0).read_spot(4);
+			let position = StringEdit::new("abc", 0, Validity::Always).read_spot(4);
 			assert_eq!(position, None)
 		}
 	}
