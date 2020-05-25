@@ -24,15 +24,15 @@ mod tests {
 	fn valid() {
 		let tests = vec![
 			(Validity::Always, ""),
-			(Validity::IfNotEmpty, "a"),
-			(Validity::IfInt, "1"),
-			(Validity::IfInt, "0"),
-			(Validity::IfInt, "-1"),
-			(Validity::IfUnsignedInt, "1"),
-			(Validity::IfUnsignedInt, "0"),
-			(Validity::IfDouble, "1.1"),
-			(Validity::IfDouble, "0"),
-			(Validity::IfDouble, "-1.1"),
+			(Validity::NotEmpty, "a"),
+			(Validity::Int, "1"),
+			(Validity::Int, "0"),
+			(Validity::Int, "-1"),
+			(Validity::UnsignedInt, "1"),
+			(Validity::UnsignedInt, "0"),
+			(Validity::Double, "1.1"),
+			(Validity::Double, "0"),
+			(Validity::Double, "-1.1"),
 		];
 		for (valid, text) in tests {
 			let edit = StringEdit::new(text, 0, valid);
@@ -43,11 +43,11 @@ mod tests {
 	#[test]
 	fn invalid() {
 		let tests = vec![
-			(Validity::IfNotEmpty, ""),
-			(Validity::IfInt, "a"),
-			(Validity::IfUnsignedInt, "a"),
-			(Validity::IfUnsignedInt, "-1"),
-			(Validity::IfDouble, "a"),
+			(Validity::NotEmpty, ""),
+			(Validity::Int, "a"),
+			(Validity::UnsignedInt, "a"),
+			(Validity::UnsignedInt, "-1"),
+			(Validity::Double, "a"),
 		];
 		for (valid, text) in tests {
 			let edit = StringEdit::new(text, 0, valid);
@@ -77,10 +77,10 @@ impl StringEdit {
 	pub fn is_valid(&self) -> bool {
 		match self.validity {
 			Validity::Always => true,
-			Validity::IfNotEmpty => !self.read().trim().is_empty(),
-			Validity::IfInt => self.read().parse::<i64>().is_ok(),
-			Validity::IfUnsignedInt => self.read().parse::<u64>().is_ok(),
-			Validity::IfDouble => self.read().parse::<f64>().is_ok(),
+			Validity::NotEmpty => !self.read().trim().is_empty(),
+			Validity::Int => self.read().parse::<i64>().is_ok(),
+			Validity::UnsignedInt => self.read().parse::<u64>().is_ok(),
+			Validity::Double => self.read().parse::<f64>().is_ok(),
 		}
 	}
 }
@@ -88,10 +88,10 @@ impl StringEdit {
 #[derive(Debug, Copy, Clone, Eq, PartialEq)]
 pub enum Validity {
 	Always,
-	IfNotEmpty,
-	IfInt,
-	IfUnsignedInt,
-	IfDouble,
+	NotEmpty,
+	Int,
+	UnsignedInt,
+	Double,
 }
 
 #[derive(Debug, Copy, Clone, Eq, PartialEq)]
